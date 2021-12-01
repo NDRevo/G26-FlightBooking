@@ -61,18 +61,18 @@ li a:hover {
 <div class="form-group row">
     <div class="form-group">
         <label class="control-label" for="date">Departing Date</label>
-        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="date"/>
       </div>
     <div class="form-group">
          <label class="control-label" for="date">Arriving Date</label>
-         <input class="form-control" id="date2" name="date2" placeholder="MM/DD/YYY" type="text"/>
+         <input class="form-control" id="date2" name="date2" placeholder="MM/DD/YYY" type="date"/>
       </div>
   <div class="col-xs-2">
-    <label for="ex1">col-xs-2</label>
+    <label for="ex1">Departing Airport</label>
     <input class="form-control" id="airport1" type="Departing Airport">
   </div>
   <div class="col-xs-3">
-    <label for="ex2">col-xs-3</label>
+    <label for="ex2">Arriving Airport</label>
     <input class="form-control" id="airport2" type="Arriving Airport">
   </div>
   <button class="btn btn-primary " name="submit" type="submit">Submit</button>
