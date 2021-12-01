@@ -52,10 +52,10 @@ li a:hover {
     <li><a href="#profile">Profile</a></li>
 </ul>
 
-<label class="checkbox-inline"><input type="checkbox" value="">One Way</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Round Trip</label>
-<label class="checkbox-inline"><input type="checkbox" value="">One Way Flexible</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Round Trip Flexible</label>
+<label class="checkbox-inline"><input type="radio" onclick="document.getElementById(date2).style.display = 'none'" value="oneWay"> One Way</label>
+<label class="checkbox-inline"><input type="radio" value="roundTrip"> Round Trip</label>
+<label class="checkbox-inline"><input type="radio" value="oneWayFlexible"> One Way Flexible</label>
+<label class="checkbox-inline"><input type="radio" value="roundTripFlexible"> Round Trip Flexible</label>
 
 
 <div class="form-group row">
@@ -64,7 +64,7 @@ li a:hover {
         <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="date"/>
       </div>
     <div class="form-group">
-         <label class="control-label" for="date">Arriving Date</label>
+         <label class="control-label" for="date">Returning Date</label>
          <input class="form-control" id="date2" name="date2" placeholder="MM/DD/YYY" type="date"/>
       </div>
   <div class="col-xs-2">

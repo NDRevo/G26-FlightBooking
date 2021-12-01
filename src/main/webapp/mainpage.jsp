@@ -39,10 +39,10 @@
 </head>
 <body>
 <ul>
-    <li><a class="active" href="#home">Home</a></li>
-    <li><a href="#book">Book Flights</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#profile">Profile</a></li>
+    <li><a class="active" href="#home" onclick="response.sendRedirect('./login.html')">Home</a></li>
+    <li><a href="#book" onclick="response.sendRedirect('./flightSearch.jsp')">Book Flights</a></li>
+    <li><a href="#faq" onclick="response.sendRedirect('./faq.jsp')">FAQ</a></li>
+    <li><a href="#profile" onclick="response.sendRedirect('./profile.jsp')">Profile</a></li>
 </ul>
 
 <button id="logOutBTN" type="button" onclick="logout()">Logout</button>
