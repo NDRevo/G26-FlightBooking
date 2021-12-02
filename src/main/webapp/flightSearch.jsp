@@ -44,13 +44,30 @@ li a:hover {
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
+
+
 <body>
 <ul>
     <li><a class="active" href="#book">Book Flights</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#home">home</a></li>
+    <li><a href="#home">Home</a></li>
     <li><a href="#profile">Profile</a></li>
 </ul>
+
+		<% try {
+	
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();		
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+
+			//Run the query against the database.
+			ResultSet flights = db.getAllAvailableFlights(stmt);
+		%>
 
 <label class="checkbox-inline"><input type="checkbox" value="">One Way</label>
 <label class="checkbox-inline"><input type="checkbox" value="">Round Trip</label>
@@ -81,36 +98,36 @@ li a:hover {
 <table class="table table-bordered table-striped">
     <thead>
       <tr>
+        <th>Flight Number</th>
         <th>Departure Date</th>
         <th>Departing Airport</th>
         <th>Arriving Airport</th>
         <th>Return Date</th>
-        <th>Departing Airport</th>
-        <th>Arriving Airport</th>
         <th>Cost</th>
       </tr>
     </thead>
     <tbody id="flightList">
-      <tr>
-        <th>'5/5/21'</th>
-        <th>NWK</th>
-        <th>LAX</th>
-        <th>'5/7/21'</th>
-        <th>LAX</th>
-        <th>NWK</th>
-        <th>$500</th>
-      </tr>
-      <tr>
-        <th>'5/5/21'</th>
-        <th>NWK</th>
-        <th>LAX</th>
-        <th>'N/A'</th>
-        <th>'N/A'</th>
-        <th>'N/A'</th>
-        <th>$200</th>
-      </tr>
+    		<%
+			//parse out the results
+			while (flights.next()) { %>
+				<tr>    
+					<td><%= flights.getString("flightid") %></td>
+					<td><%= flights.getString("dow") + " " + flights.getString("departuretime") %></td>
+					<td><%= flights.getString("departureairport") %></td>
+					<td><%= flights.getString("destinationairport") %></td>
+					<td><%= flights.getString("dow") + " " + flights.getString("arrivaltime") %></td>
+					<td>$400</td>
+				</tr>
+			<% }
+			//close the connection.
+			db.closeConnection(con);
+			%>			
     </tbody>
   </table>
+  
+  		<%} catch (Exception e) {
+			out.print(e);
+		}%>
 
 </body>
 </html>

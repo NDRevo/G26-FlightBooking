@@ -1,9 +1,14 @@
-<%@ page import ="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" import="com.group26project.pkg.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+
 <%
     String userid = request.getParameter("username");
     String pwd = request.getParameter("password");
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TravelBusiness","root", "NDuran");
+   
+    ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();	
     Statement st = con.createStatement();
     ResultSet rs;
     rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
