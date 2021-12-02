@@ -1,8 +1,6 @@
 package com.group26project.pkg;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ApplicationDB {
 	
@@ -48,6 +46,52 @@ public class ApplicationDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public ResultSet getAllAvailableFlights(Statement stmt) throws SQLException {
+		String str = 
+				
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Monday' as 'dow' "+
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.monday = 1 and flight.dooid = daysofoperation.dooid " +
+
+				" UNION " +
+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Tuesday' as 'dow' " +
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.tuesday = 1 and flight.dooid = daysofoperation.dooid " +
+
+				" UNION " +
+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Wednesday' as 'dow' " +
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.wednesday = 1 and flight.dooid = daysofoperation.dooid " +
+
+				" UNION " +
+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Thursday' as 'dow' " +
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.thursday = 1 and flight.dooid = daysofoperation.dooid " +
+
+				" UNION " +
+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Friday' as 'dow' " +
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.friday = 1 and flight.dooid = daysofoperation.dooid " +
+
+				" UNION " +
+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Saturday' as 'dow' " +
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.saturday = 1 and flight.dooid = daysofoperation.dooid " +
+
+				" UNION " +
+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Sunday' as 'dow' " +
+				"FROM  flight, daysofoperation " +
+				"Where daysofoperation.sunday = 1 and flight.dooid = daysofoperation.dooid ";
+		
+		 	return stmt.executeQuery(str);
 	}
 	
 	
