@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="displayLoginDetails.jsp" method="POST">
+<form action="validateLoginDetails.jsp" method="POST">
     Username: <input type="text" name="username"/> <br/>
     Password:<input type="password" name="password"/> <br/>
     <input type="Submit" value="Submit"/>
@@ -14,3 +14,4 @@
 </form>
 </body>
 </html>
+

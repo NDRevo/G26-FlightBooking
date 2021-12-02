@@ -10,8 +10,7 @@
     ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();	
     Statement st = con.createStatement();
-    ResultSet rs;
-    rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
+    ResultSet rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
     if (rs.next()) {
         session.setAttribute("user", userid); // the username will be stored in the session
         response.sendRedirect("mainpage.jsp");

@@ -49,10 +49,10 @@ li a:hover {
 
 <body>
 <ul>
-    <li><a class="active" href="#book">Book Flights</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#profile">Profile</a></li>
+    <li><a href="mainpage.jsp">Home</a></li>
+    <li><a class="active" href="flightSearch.jsp">Book Flights</a></li>
+    <li><a href="faq.jsp">FAQ</a></li>
+    <li><a href="profile.jsp">Profile</a></li>
 </ul>
 
 		<% try {
@@ -128,6 +128,8 @@ li a:hover {
   		<%} catch (Exception e) {
 			out.print(e);
 		}%>
-
+<form method="POST" action= "accountLogOut.jsp">
+    <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
+</form>
 </body>
 </html>
