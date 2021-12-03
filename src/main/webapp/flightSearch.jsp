@@ -51,12 +51,12 @@ li a:hover {
     <li><a href="#home">home</a></li>
     <li><a href="#profile">Profile</a></li>
 </ul>
-
-<label class="checkbox-inline"><input type="radio" onclick="document.getElementById(date2).style.display = 'none'" value="oneWay"> One Way</label>
+<form>
+<label class="checkbox-inline"><input type="radio" onclick="javascript:document.getElementById(date2).style.display = 'none';" value="oneWay"> One Way</label>
 <label class="checkbox-inline"><input type="radio" value="roundTrip"> Round Trip</label>
 <label class="checkbox-inline"><input type="radio" value="oneWayFlexible"> One Way Flexible</label>
 <label class="checkbox-inline"><input type="radio" value="roundTripFlexible"> Round Trip Flexible</label>
-
+</form>
 
 <div class="form-group row">
     <div class="form-group">
