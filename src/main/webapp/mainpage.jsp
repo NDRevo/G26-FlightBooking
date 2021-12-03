@@ -39,19 +39,16 @@
 </head>
 <body>
 <ul>
-    <li><a class="active" href="#home" onclick="response.sendRedirect('./login.html')">Home</a></li>
-    <li><a href="#book" onclick="response.sendRedirect('./flightSearch.jsp')">Book Flights</a></li>
-    <li><a href="#faq" onclick="response.sendRedirect('./faq.jsp')">FAQ</a></li>
-    <li><a href="#profile" onclick="response.sendRedirect('./profile.jsp')">Profile</a></li>
+    <li><a class="active" href="mainpage.jsp">Home</a></li>
+    <li><a href="flightSearch.jsp">Book Flights</a></li>
+    <li><a href="faq.jsp">FAQ</a></li>
+    <li><a href="profile.jsp">Profile</a></li>
 </ul>
 
-<button id="logOutBTN" type="button" onclick="logout()">Logout</button>
+<form method="POST" action= "accountLogOut.jsp">
+    <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
+</form>
 
-<script>
-function logout() {
-	session.invalidate();
-	response.sendRedirect("./login.html");
-}
-</script>
+
 </body>
 </html>

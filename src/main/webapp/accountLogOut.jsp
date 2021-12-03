@@ -6,5 +6,5 @@
 
 <%
 session.invalidate();
-response.sendRedirect("login.html");
+response.sendRedirect("login.jsp");
 %>
