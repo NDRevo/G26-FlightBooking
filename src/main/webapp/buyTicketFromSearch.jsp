@@ -62,42 +62,55 @@ li a:hover {
 
   
     while(rs1.next()){
-    	String airlineid = rs1.getString(1);
-    	String aircraftid = rs1.getString(2);
+    	String flightid = rs1.getString(1);
+
     	
-    	String dair = rs1.getString(3);
-    	String ddate = rs1.getString(4);
-    	String dtime = rs1.getString(5);
-    	String aair = rs1.getString(6);
+    	String departuretime = rs1.getString(3);
+    	String arrivaltime = rs1.getString(2);
     	
-    	String econPrice = rs1.getString(11);
-    	String busPrice = rs1.getString(12);
     	
-    	out.println(rs1.getString(1) + rs1.getString(2));
-    	out.println(rs1.getString(3));
-    	out.println(rs1.getString(4));
-    	out.println(rs1.getString(5));
-    	out.println(rs1.getString(6));
-    	out.println(rs1.getString(7));
-    	out.println(rs1.getString(8));
-    	out.println(rs1.getString(9));
-    	out.println(rs1.getString(10));
-    	out.println(rs1.getString(11));
-    	out.println(rs1.getString(12));
+    	String departureairport = rs1.getString(4);
+    	String destinationairport = rs1.getString(5);
+    	String aircraftid = rs1.getString(7);
+    	
+    	String econfare = rs1.getString(9);
+    	String busfare = rs1.getString(10);
+    	String firstfare = rs1.getString(11);
+    	String availableseats = rs1.getString(13);
+    	
+    	out.println(flightid);
+    	out.println(departureairport);
+    	out.println(departuretime);
+    	out.println(destinationairport);
+    	out.println(arrivaltime);	
+    	out.println(aircraftid);
+    	out.println(econfare);
+    	out.println(busfare);
+    	out.println(firstfare);
+    	out.println(availableseats);
     	
     	%>
     	<form action="buyTicketConfirmation.jsp">
-	    	<input type="submit" name="button_clicked" value="Buy Economy Class">
-	    	<input type="submit" name="button_clicked" value="Buy Business Class">
-	    	<input type="submit" name="button_clicked" value="Buy First Class">
+	    	<input type="submit" name="buyButtonClicked" value="Buy Economy Class">
+	    	<input type="submit" name="buyButtonClicked" value="Buy Business Class">
+	    	<input type="submit" name="buyButtonClicked" value="Buy First Class">
+	    	
+	    	<input type="hidden" name=flightid value="<%=flightid%>">
+	    	<input type="hidden" name=departureairport value="<%=departureairport%>">
+	    	<input type="hidden" name=departuretime value="<%=departuretime%>">
+	    	<input type="hidden" name=destinationairport value="<%=destinationairport%>">
+	    	<input type="hidden" name=arrivaltime value="<%=arrivaltime%>">
+	    	<input type="hidden" name=aircraftid value="<%=aircraftid%>">
+	    	<input type="hidden" name=econfare value="<%=econfare%>">
+	    	<input type="hidden" name=busfare value="<%=busfare%>">
+	    	<input type="hidden" name=firstfare value="<%=firstfare%>">
+	    	<input type="hidden" name=availableseats value="<%=availableseats%>">
 
     	</form>
     	
     	<form action="flightWaitlistConfirmation.jsp">
 	    	<input type="submit" name="button_clicked" value="Waiting Queue">
-	    	<input type="hidden" name=airline_id value="<%=airlineid%>">
-	    	<input type="hidden" name=aircraft_id value="<%=aircraftid%>">
-	    	<input type="hidden" name=dep_date value="<%=ddate%>">
+	    	<input type="hidden" name=flightid value="<%=flightid%>">
     	</form>
     	
     	
