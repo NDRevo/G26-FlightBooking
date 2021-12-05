@@ -51,43 +51,43 @@ public class ApplicationDB {
 	public ResultSet getAllAvailableFlights(Statement stmt) throws SQLException {
 		String str = 
 				
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Monday' as 'dow' "+
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Monday' as 'dow' "+
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.monday = 1 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Tuesday' as 'dow' " +
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Tuesday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.tuesday = 1 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Wednesday' as 'dow' " +
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Wednesday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.wednesday = 1 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Thursday' as 'dow' " +
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Thursday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.thursday = 1 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Friday' as 'dow' " +
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Friday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.friday = 1 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Saturday' as 'dow' " +
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Saturday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.saturday = 1 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
-				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, cost, 'Sunday' as 'dow' " +
+				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Sunday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
 				"Where daysofoperation.sunday = 1 and flight.dooid = daysofoperation.dooid ";
 		

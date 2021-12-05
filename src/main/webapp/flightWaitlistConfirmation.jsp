@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.group26project.pkg.*"%>
-<!--Import some libraries that have classes that we need -->
+
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -42,5 +42,20 @@ li a:hover {
     <li><a href="faq.jsp">FAQ</a></li>
     <li><a href="profile.jsp">Profile</a></li>
 </ul>
+<label>YOU'VE BEEN PUT ON THE WAITLIST!</label>
+<% 
+	ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();	
+	Statement stmt = con.createStatement();
+
+	String userid = (String) session.getAttribute("user");
+	String flightid = request.getParameter("flightid");
+
+	
+	 int x = stmt.executeUpdate("insert into waitlist(username, flightid) value ('" +userid +
+			 "','" +flightid+ "')");
+
+%>
+
 </body>
 </html>
