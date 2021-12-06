@@ -47,10 +47,9 @@ li a:hover {
 
 <body>
 <ul>
-    <li><a href="mainpage.jsp">Home</a></li>
     <li><a class="active" href="flightSearch.jsp">Book Flights</a></li>
-    <li><a href="faq.jsp">FAQ</a></li>
-    <li><a href="profile.jsp">Profile</a></li>
+    <li><a href="../faq.jsp">FAQ</a></li>
+    <li><a href="../profile.jsp">Profile</a></li>
 </ul>
 
 		<% try {
@@ -76,8 +75,8 @@ li a:hover {
 
 <div class="form-group row" style="position:relative; left: 20px;">
     <div class="form-group">
-        <label class="control-label" for="depaturetime">Departing Date</label>
-        <input class="form-control" id="depaturetime" name="depaturetime" placeholder="MMDDYYYY" type="text"/>
+        <label class="control-label" for="departuretime">Departing Date</label>
+        <input class="form-control" id="departuretime" name="departuretime" placeholder="MM/DD/YYYY" type="text"/>
     </div>
     <div class="form-group">
    	 	<label class="control-label" for="departingairport">Departing Airport</label>
@@ -87,10 +86,6 @@ li a:hover {
     <div class="form-group">
       <label class="control-label" for="destinationairport">Arriving Airport</label>
       <input class="form-control" id="destinationairport" name="destinationairport" placeholder="Arriving Airport" type="text"/>
-    </div>
-        <div class="form-group">
-        <label class="control-label" for="arrivaltime">Arriving Date</label>
-        <input class="form-control" id="arrivaltime" name="arrivaltime" placeholder="MMDDYYYY" type="text"/>
     </div>
     <div class="form-group" id="radiobuttonresult">
       </div>
@@ -156,7 +151,7 @@ $(document).ready(function() {
     </tbody>
   </table>
   
-<form method="POST" action= "accountLogOut.jsp">
+<form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
 </body>

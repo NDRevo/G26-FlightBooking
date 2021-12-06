@@ -42,8 +42,7 @@ li a:hover {
 </div>
 
 <ul>
-    <li><a href="mainpage.jsp">Home</a></li>
-    <li><a href="flightSearch.jsp">Book Flights</a></li>
+    <li><a href="Booking/flightSearch.jsp">Book Flights</a></li>
     <li><a href="faq.jsp">FAQ</a></li>
     <li><a class="active" href="profile.jsp">Profile</a></li>
 </ul>

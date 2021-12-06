@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.group26project.pkg.*"%>
 <!--Import some libraries that have classes that we need -->
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.util.Date, java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -37,27 +37,32 @@ li a:hover {
 </head>
 <body>
 <ul>
-    <li><a href="mainpage.jsp">Home</a></li>
     <li><a class="active" href="flightSearch.jsp">Book Flights</a></li>
-    <li><a href="faq.jsp">FAQ</a></li>
-    <li><a href="profile.jsp">Profile</a></li>
+    <li><a href="../faq.jsp">FAQ</a></li>
+    <li><a href="../profile.jsp">Profile</a></li>
 </ul>
 
-<%@ page import ="java.sql.*" %>
 	If flight is full, click on the waitlist button to be added to the waiting queue.
 	<br>
 <%
-    String departingairport = request.getParameter("departingairport");   
+    String getDepartureAirport = request.getParameter("departingairport");
+    String getDestinationAirport = request.getParameter("destinationairport");   
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    Date departureDate = dateFormat.parse(request.getParameter("departuretime"));
+    
+    if(request.getParameter("returndate") != null){
+        Date returndate = dateFormat.parse(request.getParameter("returndate"));
+    }
     
     ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();	
     Statement stmt = con.createStatement();
-  
+
     
     ResultSet rs1;
    
-    rs1 = stmt.executeQuery("select * from flight where flight.departureairport='"+ departingairport+"'");
+    rs1 = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
  
 
   
@@ -112,7 +117,6 @@ li a:hover {
 	    	<input type="submit" name="button_clicked" value="Waiting Queue">
 	    	<input type="hidden" name=flightid value="<%=flightid%>">
     	</form>
-    	
     	
     	<%} %>
 </body>

@@ -42,7 +42,7 @@ li a:hover {
     <li><a href="#list">List</a></li>
     <li><a href="#faq">FAQ</a></li>
 </ul>
-<form method="POST" action= "accountLogOut.jsp">
+<form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
 </body>

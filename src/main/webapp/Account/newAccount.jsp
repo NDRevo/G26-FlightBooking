@@ -57,7 +57,7 @@
 		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
-		response.sendRedirect("mainpage.jsp");
+		response.sendRedirect("../Booking/flightSearch.jsp");
 		
 	} catch (Exception ex) {
 		out.print(ex);
