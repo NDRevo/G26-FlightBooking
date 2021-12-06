@@ -37,10 +37,10 @@ li a:hover {
 </head>
 <body>
 <ul>
-    <li><a href="#reservations">Reservations</a></li>
-    <li><a href="#modify">Modify</a></li>
-    <li><a href="#list">List</a></li>
-    <li><a class="active" href="#faq">FAQ</a></li>
+    <li><a href="customerRepresentative.jsp">Reservations</a></li>
+    <li><a href="crmodify.jsp">Modify</a></li>
+    <li><a href="crlist.jsp">List</a></li>
+    <li><a class="active" href="crfaq.jsp">FAQ</a></li>
 </ul>
 <form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
