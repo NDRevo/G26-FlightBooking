@@ -37,11 +37,37 @@ li a:hover {
 </head>
 <body>
 <ul>
-    <li><a class="active" href="customerRepresenative.jsp">Reservations</a></li>
+    <li><a class="active" href="customerRepresentative.jsp">Reservations</a></li>
     <li><a href="crmodify.jsp">Modify</a></li>
     <li><a href="crlist.jsp">List</a></li>
     <li><a href="crfaq.jsp">FAQ</a></li>
 </ul>
+
+<label>Unanswered FAQ</label>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Unanswered Questions</th>
+        <th>Departure Date</th>
+      </tr>
+    </thead>
+    <tbody id="faqlist">
+    		<%
+				//parse out the results
+				while (faqlist.next()) { %>
+					<tr>
+
+					</tr>
+				<% }
+				//close the connection.
+				db.closeConnection(con); }
+				catch (Exception e) {
+					out.print(e);
+				}
+			%>
+    </tbody>
+  </table>
+
 <form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>

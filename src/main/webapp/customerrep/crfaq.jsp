@@ -31,6 +31,26 @@ li a {
 li a:hover {
   background-color: #111;
 }
+.popup {
+    display: inline-block;
+}
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #b1b1b1;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px;
+    position:relative;
+    top:50px;
+    right:150px;
+}
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
     </style>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -42,7 +62,28 @@ li a:hover {
     <li><a href="crlist.jsp">List</a></li>
     <li><a class="active" href="crfaq.jsp">FAQ</a></li>
 </ul>
+
+<div style="text-align:center;">
+  <a href="#" onclick="pop()">FAQ QUESTION HERE</a>
+  <div class="popup">
+    <span class="popuptext" id="faqPopUp">
+      Enter question answer: <input type="text"/>
+    </span>
+    <form method="POST" action= "NEED TO ADD THING HERE ***">
+        <input type="submit" id="submitAnswerBTN" name="Submit" value="Submit"/>
+    </form>
+  </div>
+</div>
+
+
 <form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
+<script>
+function pop() {
+    var popup = document.getElementById('myPopup');
+    popup.classList.toggle('show');
+}
+</script>
+</body>
  </html>
