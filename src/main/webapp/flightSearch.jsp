@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.group26project.pkg.*"%>
-<!--Import some libraries that have classes that we need -->
+
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,8 +13,6 @@
 <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
 <!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
 ul {
@@ -68,33 +66,63 @@ li a:hover {
 			//Run the query against the database.
 			ResultSet flights = db.getAllAvailableFlights(stmt);
 		%>
+		
+<form action="buyTicketFromSearch.jsp">
+	
+<label class="checkbox-inline"><input type="radio" name="flighttype" checked>One Way</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" value="rt">Round Trip</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype">One Way Flexible</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" value="rtf">Round Trip Flexible</label>
 
-<label class="checkbox-inline"><input type="checkbox" value="">One Way</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Round Trip</label>
-<label class="checkbox-inline"><input type="checkbox" value="">One Way Flexible</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Round Trip Flexible</label>
-
-
-<div class="form-group row">
+<div class="form-group row" style="position:relative; left: 20px;">
     <div class="form-group">
-        <label class="control-label" for="date">Departing Date</label>
-        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-      </div>
+        <label class="control-label" for="depaturetime">Departing Date</label>
+        <input class="form-control" id="depaturetime" name="depaturetime" placeholder="MMDDYYYY" type="text"/>
+    </div>
     <div class="form-group">
-         <label class="control-label" for="date">Arriving Date</label>
-         <input class="form-control" id="date2" name="date2" placeholder="MM/DD/YYY" type="text"/>
+   	 	<label class="control-label" for="departingairport">Departing Airport</label>
+        <input class="form-control" id="departingairport" name="departingairport" placeholder="Departing Airport" type="text"/>
+    </div>
+ 
+    <div class="form-group">
+      <label class="control-label" for="destinationairport">Arriving Airport</label>
+      <input class="form-control" id="destinationairport" name="destinationairport" placeholder="Arriving Airport" type="text"/>
+    </div>
+        <div class="form-group">
+        <label class="control-label" for="arrivaltime">Arriving Date</label>
+        <input class="form-control" id="arrivaltime" name="arrivaltime" placeholder="MMDDYYYY" type="text"/>
+    </div>
+    <div class="form-group" id="radiobuttonresult">
       </div>
-  <div class="col-xs-2">
-    <label for="ex1">col-xs-2</label>
-    <input class="form-control" id="airport1" type="Departing Airport">
-  </div>
-  <div class="col-xs-3">
-    <label for="ex2">col-xs-3</label>
-    <input class="form-control" id="airport2" type="Arriving Airport">
-  </div>
-  <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+  <button id="submitbutton" class="btn btn-primary " name="submit" type="submit">Submit</button>
 </div>
+</form>
 
+
+
+
+<script>
+$(document).ready(function() {
+    $('input[type=radio][name="flighttype"]').on('change', function() {
+        if(this.value == "rt" || this.value == "rtf"){
+        	if(document.getElementById("returndate")){
+        		
+        	} else {
+          	  var newLabel = "<label class='control-label' for='date' id='returndatelabel'>Return Date</label>";
+        	  var newInput = "<input class='form-control' id='returndate' name='returndate' placeholder='MM/DD/YYY' type='text'/>";
+
+        	  $('#radiobuttonresult').append(newLabel);
+        	  $('#radiobuttonresult').append(newInput);
+        	}
+        } else {
+        	$('#returndatelabel').remove()
+        	$('#returndate').remove()
+        }
+    });
+});
+</script>
+
+<label>All Flights</label>
 <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -108,26 +136,26 @@ li a:hover {
     </thead>
     <tbody id="flightList">
     		<%
-			//parse out the results
-			while (flights.next()) { %>
-				<tr>    
-					<td><%= flights.getString("flightid") %></td>
-					<td><%= flights.getString("dow") + " " + flights.getString("departuretime") %></td>
-					<td><%= flights.getString("departureairport") %></td>
-					<td><%= flights.getString("destinationairport") %></td>
-					<td><%= flights.getString("dow") + " " + flights.getString("arrivaltime") %></td>
-					<td>$400</td>
-				</tr>
-			<% }
-			//close the connection.
-			db.closeConnection(con);
+				//parse out the results
+				while (flights.next()) { %>
+					<tr>    
+						<td><%= flights.getString("flightid") %></td>
+						<td><%= flights.getString("dow") + " " + flights.getString("departuretime") %></td>
+						<td><%= flights.getString("departureairport") %></td>
+						<td><%= flights.getString("destinationairport") %></td>
+						<td><%= flights.getString("dow") + " " + flights.getString("arrivaltime") %></td>
+						<td><%= flights.getString("econfare") %></td>
+					</tr>
+				<% }
+				//close the connection.
+				db.closeConnection(con); } 
+				catch (Exception e) {
+					out.print(e);
+				}
 			%>			
     </tbody>
   </table>
   
-  		<%} catch (Exception e) {
-			out.print(e);
-		}%>
 <form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
