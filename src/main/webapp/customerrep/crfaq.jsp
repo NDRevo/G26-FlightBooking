@@ -37,13 +37,12 @@ li a:hover {
 </head>
 <body>
 <ul>
-    <li><a class="active" href="#reservations">Reservations</a></li>
+    <li><a href="#reservations">Reservations</a></li>
     <li><a href="#modify">Modify</a></li>
     <li><a href="#list">List</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a class="active" href="#faq">FAQ</a></li>
 </ul>
-<form method="POST" action= "../Account/accountLogOut.jsp">
+<form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
-</body>
-</html>
+ </html>
