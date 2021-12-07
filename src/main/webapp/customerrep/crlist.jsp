@@ -6,8 +6,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
 ul {
   list-style-type: none;
   margin: 0;
@@ -45,4 +47,32 @@ li a:hover {
 <form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
+<div class="container">
+  <h2>Lists</h2>
+  <form class="form-inline" action="">
+    <div class="form-group">
+      <label for="flightNum">Waitlist by flight:</label>
+      <input type="text" class="form-control" id="flightNum" placeholder="Enter flight number" name="flightNum">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+   <form class="form-inline" action="">
+      <div class="form-group">
+        <label for="allFlights">Flights by departing airport:</label>
+        <input type="text" class="form-control" id="departingAirport" placeholder="Enter departing airport" name="departingAirport">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <form class="form-inline" action="">
+          <div class="form-group">
+            <label for="allFlights">Flights by arriving airport:</label>
+            <input type="text" class="form-control" id="arrivingAirport" placeholder="Enter arriving airport" name="arrivingAirport">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        </div>
+
+</div>
  </html>
