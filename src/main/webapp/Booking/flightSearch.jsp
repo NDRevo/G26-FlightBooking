@@ -38,6 +38,41 @@ li a {
 li a:hover {
   background-color: #111;
 }
+.dropbtn {
+  background-color: #B066D4;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #A544D5;
+}
     </style>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -72,6 +107,16 @@ li a:hover {
 <label class="checkbox-inline"><input type="radio" name="flighttype" value="rt">Round Trip</label>
 <label class="checkbox-inline"><input type="radio" name="flighttype">One Way Flexible</label>
 <label class="checkbox-inline"><input type="radio" name="flighttype" value="rtf">Round Trip Flexible</label>
+
+<div class="dropdown">
+  <button class="dropbtn">Sort by</button>
+  <div class="dropdown-content">
+    <a href="#">Price/a>
+    <a href="#">Take Off Time</a>
+    <a href="#">Landing Time</a>
+    <a href="#">Duration of Flight</a>
+  </div>
+</div>
 
 <div class="form-group row" style="position:relative; left: 20px;">
     <div class="form-group">
