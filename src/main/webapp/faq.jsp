@@ -37,8 +37,7 @@ li a:hover {
 </head>
 <body>
 <ul>
-    <li><a href="mainpage.jsp">Home</a></li>
-    <li><a href="flightSearch.jsp">Book Flights</a></li>
+    <li><a href="Booking/flightSearch.jsp">Book Flights</a></li>
     <li><a class="active" href="faq.jsp">FAQ</a></li>
     <li><a href="profile.jsp">Profile</a></li>
 </ul>
@@ -108,7 +107,7 @@ li a:hover {
     Cannot find your question? Ask it here:<input type="text" rows="5" name="newFaq"/> <br/>
     <input type="Submit" value="faqSubmit"/>
 </form>
-<form method="POST" action= "accountLogOut.jsp">
+<form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
 </body>

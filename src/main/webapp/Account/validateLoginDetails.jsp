@@ -13,8 +13,8 @@
     ResultSet rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
     if (rs.next()) {
         session.setAttribute("user", userid); // the username will be stored in the session
-        response.sendRedirect("mainpage.jsp");
+        response.sendRedirect("../Booking/flightSearch.jsp");
     } else {
-        out.println("Invalid password <a href='login.html'>try again</a>");
+        out.println("Invalid password <a href='../login.jsp'>try again</a>");
     }
 %>
