@@ -45,4 +45,97 @@ li a:hover {
 <form method="POST" action= "accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
+<div class="container">
+  <h2>Lists</h2>
+  <form class="form-inline" action="">
+    <div class="form-group">
+      <label for="modifyAircraft">Edit Aircraft:</label>
+      <input type="text" class="form-control" id="aircraftNum" placeholder="Enter aircraft ID" name="aircraft">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+   <form class="form-inline" action="">
+      <div class="form-group">
+        <label for="modifyAirport">Edit Airport:</label>
+        <input type="text" class="form-control" id="airportName" placeholder="Enter airport ID" name="airportName">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <form class="form-inline" action="">
+          <div class="form-group">
+            <label for="modifyFlight">Edit Flight</label>
+            <input type="text" class="form-control" id="flightNum" placeholder="Enter flight ID" name="flightNum">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        </div>
+
+</div>
+
+<div id="aircraftEditForm">
+<form action="">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+
+<div id="airportEditForm">
+<form action="">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+
+<div id="flightEditForm">
+<form action="">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+
+<script>
+function editAircraft() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+<script>
+function editAirport() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+<script>
+function editFlight() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+
  </html>
