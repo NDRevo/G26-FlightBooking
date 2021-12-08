@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.group26project.pkg.*"%>
 <!--Import some libraries that have classes that we need -->
-<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.*,java.util.Date, java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -69,20 +69,41 @@ li a:hover {
 	Random rnd = new Random();
 	int ticketid = 100000 + rnd.nextInt(900000);
 	
-	java.util.Date currentDate = new java.util.Date();
+
+	Date date = new Date();   
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    String stringCurrentDate = dateFormat.format(date);
+
 
 	if("Buy Economy Class".equals(buttonClicked)){
-		 ResultSet rs1 = stmt.executeQuery("select current_timestamp");
-		// ResultSet rs2 = stmt.executeQuery("select extract(month from current_timestamp )");
-		 
-		 rs1.next();
-		 String curr = rs1.getString("current_timestamp");
-		 String cl = "Economy Class";
 		 String bookingfee = Integer.toString(100);
 		 String totalfare = Integer.toString(econfare + 100);
 		 
-		 int x = stmt.executeUpdate("insert into ticketfor (userid, ticketid, purchasedate, bookingfee, totalfare) value ('" +userid +
-				 "','" +ticketid+ "' ,'" +currentDate+ "' ,'" + bookingfee + "','" +totalfare+ "')");
+		 stmt.executeUpdate("insert into ticketfor (username, ticketid, purchasedate, bookingfee, totalfare) value ('" +userid +
+				 "','" +ticketid+ "', STR_TO_DATE('" + stringCurrentDate + "','%m/%d/%Y %H:%i')" + ", '" + bookingfee + "','" +totalfare+ "')");
+		 stmt.executeUpdate("insert into flightforticket (flightid, ticketid, seatnumber, class, fare) value ('" +flightid +
+				 "','" +ticketid+ "' ,'" +availableseats+ "' ,'" + "Economy" + "','" +econfare+ "')");
+		 stmt.executeUpdate("update flight set seatsavailable = " + Integer.toString(availableseats-1) + " where flightid = '" + flightid + "'");
+	}
+	if("Buy Business Class".equals(buttonClicked)){
+		 String bookingfee = Integer.toString(125);
+		 String totalfare = Integer.toString(busfare + 125);
+		 
+		 stmt.executeUpdate("insert into ticketfor (username, ticketid, purchasedate, bookingfee, totalfare) value ('" +userid +
+				 "','" +ticketid+ "' ,'" +"STR_TO_DATE('" + totalfare + "','%m/%d/%Y %H:%i')"+ "' ,'" + bookingfee + "','" +totalfare+ "')");
+		 stmt.executeUpdate("insert into flightforticket (flightid, ticketid, seatnumber, class, fare) value ('" +flightid +
+				 "','" +ticketid+ "' ,'" +availableseats+ "' ,'" + "Business" + "','" +busfare+ "')");
+		 stmt.executeUpdate("update flight set seatsavailable = " + Integer.toString(availableseats-1) + " where flightid = " + flightid);
+	}
+	if("Buy First Class".equals(buttonClicked)){
+		 String bookingfee = Integer.toString(150);
+		 String totalfare = Integer.toString(firstfare + 150);
+		 
+		 stmt.executeUpdate("insert into ticketfor (username, ticketid, purchasedate, bookingfee, totalfare) value ('" +userid +
+				 "','" +ticketid+ "' ,'" +"STR_TO_DATE('" + totalfare + "','%m/%d/%Y %H:%i')"+ "' ,'" + bookingfee + "','" +totalfare+ "')");
+		 stmt.executeUpdate("insert into flightforticket (flightid, ticketid, seatnumber, class, fare) value ('" +flightid +
+				 "','" +ticketid+ "' ,'" +availableseats+ "' ,'" + "First" + "','" +firstfare+ "')");
+		 stmt.executeUpdate("update flight set seatsavailable = " + Integer.toString(availableseats-1) + " where flightid = " + flightid);
 	}
 	
 %>

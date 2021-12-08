@@ -68,9 +68,9 @@ li a:hover {
 		
 <form action="buyTicketFromSearch.jsp">
 	
-<label class="checkbox-inline"><input type="radio" name="flighttype" checked>One Way</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" value="ow"checked>One Way</label>
 <label class="checkbox-inline"><input type="radio" name="flighttype" value="rt">Round Trip</label>
-<label class="checkbox-inline"><input type="radio" name="flighttype">One Way Flexible</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" value="owf">One Way Flexible</label>
 <label class="checkbox-inline"><input type="radio" name="flighttype" value="rtf">Round Trip Flexible</label>
 
 <div class="form-group row" style="position:relative; left: 20px;">
