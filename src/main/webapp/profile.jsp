@@ -45,12 +45,20 @@ li a:hover {
 			//Create a SQL statement
 			Statement waitlistStatement = con.createStatement();
 			Statement upcomingFlightsStatement = con.createStatement();
+			Statement availableWaitlist = con.createStatement();
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 
 			//Run the query against the database.
 			Object user = session.getAttribute("user");
 			ResultSet waitlist = db.getWaitlist(waitlistStatement, user.toString());
 			ResultSet upcomingFlights = db.getUpcomingFlights(upcomingFlightsStatement, user.toString());
+			ResultSet availableFlightInWaitlist = db.getAvailableWaitlist(availableWaitlist, user.toString());
+			
+			if(availableFlightInWaitlist.next()){ %>
+				<div class="alert alert-success">
+				  	A seat is available on one of your Wait List flights.
+				</div>
+			<% }
 		%>
 
 <ul>
@@ -107,7 +115,6 @@ li a:hover {
 							<%}
 						
 						%>
-						<td></td>
 					</tr>
 				<% }
 			%>
@@ -151,6 +158,12 @@ li a:hover {
 						<td><%= waitlist.getString("destinationairport") %></td>
 						<td><%= waitlist.getString("arrivaltime") %></td>
 						<td><%= waitlist.getString("seatsavailable") %></td>
+						<td>
+							<form method="POST" action="Booking/removeWaitlist.jsp">
+								<button class="btn btn-primary ">Remove</button>
+								<input type="hidden" name=flightid value="<%=waitlist.getString("flightid")%>">
+							</form>
+						</td>
 					</tr>
 				<% }
 				//close the connection.

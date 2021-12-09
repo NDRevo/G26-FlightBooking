@@ -112,6 +112,15 @@ public class ApplicationDB {
 		return stmt.executeQuery(str);
 	}
 	
+	public ResultSet getAvailableWaitlist(Statement stmt, String user) throws SQLException{
+		String str = "select flight.flightid, users.username "
+				+ "from waitlist, users, flight "
+				+ "where waitlist.username = '" + user + "' and waitlist.flightid = flight.flightid and flight.seatsavailable > 0;";
+				
+				
+		return stmt.executeQuery(str);
+	}
+	
 	
 	
 	
