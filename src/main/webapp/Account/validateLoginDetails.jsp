@@ -12,8 +12,16 @@
     Statement st = con.createStatement();
     ResultSet rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
     if (rs.next()) {
+    	String role = rs.getString(6);
+    	
         session.setAttribute("user", userid); // the username will be stored in the session
-        response.sendRedirect("../Booking/flightSearch.jsp");
+        if(role.equalsIgnoreCase("representative")){
+        	response.sendRedirect("../customerrep/customerRepresentative.jsp");
+        } else if (role.equalsIgnoreCase("admin")){
+        	response.sendRedirect("../admin/admin.jsp");
+        } else {
+        	response.sendRedirect("../Booking/flightSearch.jsp");
+        }
     } else {
         out.println("Invalid password <a href='../login.jsp'>try again</a>");
     }

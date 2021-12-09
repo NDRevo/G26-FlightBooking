@@ -31,7 +31,42 @@ li a {
 li a:hover {
   background-color: #111;
 }
-    </style>
+.dropbtn {
+  background-color: #B066D4;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #A544D5;
+}
+</style>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -41,16 +76,25 @@ li a:hover {
     <li><a href="../faq.jsp">FAQ</a></li>
     <li><a href="../profile.jsp">Profile</a></li>
 </ul>
-
+	<div class="dropdown">
+	  <button class="dropbtn">Sort by</button>
+	  <div class="dropdown-content">
+	    <a href="#">Price</a>
+	    <a href="#">Take Off Time</a>
+	    <a href="#">Landing Time</a>
+	    <a href="#">Duration of Flight</a>
+	  </div>
+	</div>
 	If flight is full, click on the waitlist button to be added to the waiting queue.
 	<br>
 <%
     String getDepartureAirport = request.getParameter("departingairport");
     String getDestinationAirport = request.getParameter("destinationairport");   
     
-   	if(request.getParameter("flighttype") == "rt" || request.getParameter("flighttype") == "rtf"){
+   	if(request.getParameter("flighttype").equalsIgnoreCase("rt") || request.getParameter("flighttype").equalsIgnoreCase("rtf")){
    		out.println("THIS IS ROUND TRIP");
    	}
+
 
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -60,9 +104,9 @@ li a:hover {
 	Date date = new Date();   
     SimpleDateFormat dateFormatt = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     String stringCurrentDate = dateFormatt.format(date.getDate());
-    out.println(date.toString());
     
-    ResultSet rs1;
+    ResultSet departureFlights;
+    ResultSet returnFlights;
     ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();	
     Statement stmt = con.createStatement();
@@ -70,66 +114,80 @@ li a:hover {
     
     if(request.getParameter("returndate") != null){
         Date returndate = dateFormat.parse(request.getParameter("returndate"));
-        rs1 = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDestinationAirport+"' and flight.destinationairport='" + getDepartureAirport + "' and '" + returndate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
+        
+        departureFlights = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid");
+        returnFlights = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDestinationAirport+"' and flight.destinationairport='" + getDepartureAirport + "' and '" + returndate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
         
     } else {
-    	rs1 = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
-    }
+    	departureFlights = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid");
     
-
-  
-    while(rs1.next()){
-    	String flightid = rs1.getString(1);
-
-    	
-    	String departuretime = rs1.getString(3);
-    	String arrivaltime = rs1.getString(2);
-    	
-    	
-    	String departureairport = rs1.getString(4);
-    	String destinationairport = rs1.getString(5);
-    	String aircraftid = rs1.getString(7);
-    	
-    	String econfare = rs1.getString(9);
-    	String busfare = rs1.getString(10);
-    	String firstfare = rs1.getString(11);
-    	String availableseats = rs1.getString(13);
-    	
-    	out.println(flightid);
-    	out.println(departureairport);
-    	out.println(departuretime);
-    	out.println(destinationairport);
-    	out.println(arrivaltime);	
-    	out.println(aircraftid);
-    	out.println(econfare);
-    	out.println(busfare);
-    	out.println(firstfare);
-    	out.println(availableseats);
-    	
-    	%>
-    	<form action="buyTicketConfirmation.jsp">
-	    	<input type="submit" name="buyButtonClicked" value="Buy Economy Class">
-	    	<input type="submit" name="buyButtonClicked" value="Buy Business Class">
-	    	<input type="submit" name="buyButtonClicked" value="Buy First Class">
+ 
+	    while(departureFlights.next()){
+	    	String flightid = departureFlights.getString(1);
+	
+	    	String departuretime = departureFlights.getString(3);
+	    	String arrivaltime = departureFlights.getString(2);
 	    	
-	    	<input type="hidden" name=flightid value="<%=flightid%>">
-	    	<input type="hidden" name=departureairport value="<%=departureairport%>">
-	    	<input type="hidden" name=departuretime value="<%=departuretime%>">
-	    	<input type="hidden" name=destinationairport value="<%=destinationairport%>">
-	    	<input type="hidden" name=arrivaltime value="<%=arrivaltime%>">
-	    	<input type="hidden" name=aircraftid value="<%=aircraftid%>">
-	    	<input type="hidden" name=econfare value="<%=econfare%>">
-	    	<input type="hidden" name=busfare value="<%=busfare%>">
-	    	<input type="hidden" name=firstfare value="<%=firstfare%>">
-	    	<input type="hidden" name=availableseats value="<%=availableseats%>">
-
-    	</form>
-    	
-    	<form action="flightWaitlistConfirmation.jsp">
-	    	<input type="submit" name="button_clicked" value="Waiting Queue">
-	    	<input type="hidden" name=flightid value="<%=flightid%>">
-    	</form>
-    	
-    	<%} %>
+	    	String departureairport = departureFlights.getString(4);
+	    	String destinationairport = departureFlights.getString(5);
+	    	String aircraftid = departureFlights.getString(7);
+	    	
+	    	String econfare = departureFlights.getString(9);
+	    	String busfare = departureFlights.getString(10);
+	    	String firstfare = departureFlights.getString(11);
+	    	String availableseats = departureFlights.getString(13);
+	    	
+	    	
+	    	%>
+	    	
+	    	<table class="table table-bordered table-striped">
+			    <thead>
+			      <tr>
+			        <th>Flight ID</th>
+			        <th>Departure Airport</th>
+			        <th>Departing Date</th>
+			        <th>Arriving Airport</th>
+			        <th>Arriving Date</th>
+			        <th>Aircraft</th>
+			        <th>Available Seats</th>
+			      </tr>
+			    </thead>
+				    <tbody id="flightList">
+						<tr>
+							<td><%= flightid %></td>
+							<td><%= departureairport %></td>
+							<td><%= departuretime %></td>
+							<td><%= destinationairport %></td>
+							<td><%= arrivaltime %></td>
+							<td><%= aircraftid %></td>
+							<td><%= availableseats %></td>	
+						</tr>	
+				    </tbody>
+			</table>
+			<form action="buyTicketConfirmation.jsp">
+				<input type="submit" name="buyButtonClicked" id = buyEcon value="Buy Economy Class - $<%=econfare%>">
+				<input type="submit" name="buyButtonClicked" id = buyBus value="Buy Business Class - $<%=busfare%>">
+				<input type="submit" name="buyButtonClicked" id = buyFirst value="Buy First Class - $<%=firstfare%>">
+				
+				<input type="hidden" name=flightid value="<%=flightid%>">
+				<input type="hidden" name=departureairport value="<%=departureairport%>">
+				<input type="hidden" name=departuretime value="<%=departuretime%>">
+				<input type="hidden" name=destinationairport value="<%=destinationairport%>">
+				<input type="hidden" name=arrivaltime value="<%=arrivaltime%>">
+				<input type="hidden" name=aircraftid value="<%=aircraftid%>">
+				<input type="hidden" name=econfare value="<%=econfare%>">
+				<input type="hidden" name=busfare value="<%=busfare%>">
+				<input type="hidden" name=firstfare value="<%=firstfare%>">
+				<input type="hidden" name=availableseats value="<%=availableseats%>">
+			</form>
+	
+			<form action="flightWaitlistConfirmation.jsp">
+				<input type="submit" name="button_clicked" value="Waiting Queue">
+				<input type="hidden" name=flightid value="<%=flightid%>">
+			</form>	
+	
+	    	<%} 
+	         db.closeConnection(con);
+	         }%>
 </body>
 </html>

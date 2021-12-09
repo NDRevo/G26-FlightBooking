@@ -59,41 +59,58 @@ public class ApplicationDB {
 
 				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Tuesday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
-				"Where daysofoperation.tuesday = 1 and flight.dooid = daysofoperation.dooid " +
+				"Where daysofoperation.tuesday = 2 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
 				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Wednesday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
-				"Where daysofoperation.wednesday = 1 and flight.dooid = daysofoperation.dooid " +
+				"Where daysofoperation.wednesday = 3 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
 				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Thursday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
-				"Where daysofoperation.thursday = 1 and flight.dooid = daysofoperation.dooid " +
+				"Where daysofoperation.thursday = 4 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
 				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Friday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
-				"Where daysofoperation.friday = 1 and flight.dooid = daysofoperation.dooid " +
+				"Where daysofoperation.friday = 5 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
 				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Saturday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
-				"Where daysofoperation.saturday = 1 and flight.dooid = daysofoperation.dooid " +
+				"Where daysofoperation.saturday = 6 and flight.dooid = daysofoperation.dooid " +
 
 				" UNION " +
 
 				"SELECT  flightid, arrivaltime, departuretime, departureairport, destinationairport, companyid, aircraftid, econfare, 'Sunday' as 'dow' " +
 				"FROM  flight, daysofoperation " +
-				"Where daysofoperation.sunday = 1 and flight.dooid = daysofoperation.dooid ";
+				"Where daysofoperation.sunday = 0 and flight.dooid = daysofoperation.dooid ";
 		
 		 	return stmt.executeQuery(str);
 	}
 	
+	public ResultSet getWaitlist(Statement stmt, String user) throws SQLException {
+		String str = "select flight.flightid, arrivaltime, departuretime, departureairport, destinationairport, seatsavailable\r\n"
+				+ "from flight, users, waitlist\r\n"
+				+ "where flight.flightid = waitlist.flightid and users.username = waitlist.username and users.username = '"+ user +"'";
+				
+				
+		return stmt.executeQuery(str);
+	}
+	
+	public ResultSet getUpcomingFlights(Statement stmt, String user) throws SQLException {
+		String str = "select flightforticket.flightid, ticketfor.ticketid, ticketfor.totalfare, flightforticket.class, flightforticket.seatnumber, flight.arrivaltime, flight.departureairport, flight.destinationairport, flight.departuretime, seatsavailable\r\n"
+				+ "from ticketfor, flightforticket, users, flight\r\n"
+				+ "where ticketfor.ticketid = flightforticket.ticketid and ticketfor.username = users.username and users.username = '" + user + "' and flight.flightid = flightforticket.flightid ";
+				
+				
+		return stmt.executeQuery(str);
+	}
 	
 	
 	

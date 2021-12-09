@@ -53,6 +53,8 @@ li a:hover {
 	
 	 int x = stmt.executeUpdate("insert into waitlist(username, flightid) value ('" +userid +
 			 "','" +flightid+ "')");
+	 
+	 db.closeConnection(con);
 
 %>
 
