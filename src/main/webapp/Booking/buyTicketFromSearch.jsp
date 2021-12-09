@@ -165,7 +165,7 @@ li a:hover {
 				    </tbody>
 			</table>
 			
-			<% if(availableseats == "0"){ %>
+			<% if(availableseats.contains("0")){ %>
 					<form action="flightWaitlistConfirmation.jsp">
 						<input type="submit" name="button_clicked" value="Waiting Queue">
 						<input type="hidden" name=flightid value="<%=flightid%>">

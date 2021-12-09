@@ -104,8 +104,8 @@ public class ApplicationDB {
 	}
 	
 	public ResultSet getUpcomingFlights(Statement stmt, String user) throws SQLException {
-		String str = "select flightforticket.flightid, ticketfor.ticketid, ticketfor.totalfare, flightforticket.class, flightforticket.seatnumber, flight.arrivaltime, flight.departureairport, flight.destinationairport, flight.departuretime, seatsavailable\r\n"
-				+ "from ticketfor, flightforticket, users, flight\r\n"
+		String str = "select flightforticket.flightid, ticketfor.ticketid, ticketfor.totalfare, flightforticket.class, flightforticket.seatnumber, flight.arrivaltime, flight.departureairport, flight.destinationairport, flight.departuretime, flight.seatsavailable "
+				+ "from ticketfor, flightforticket, users, flight "
 				+ "where ticketfor.ticketid = flightforticket.ticketid and ticketfor.username = users.username and users.username = '" + user + "' and flight.flightid = flightforticket.flightid ";
 				
 				

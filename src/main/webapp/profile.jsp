@@ -93,8 +93,7 @@ li a:hover {
 						<td><%= upcomingFlights.getString("class") %></td>
 						<td>#<%= upcomingFlights.getString("seatnumber") %></td>
 						<td>$<%= upcomingFlights.getString("totalfare") %></td>
-						
-						
+										
 						<%
 							if(!upcomingFlights.getString("class").contains("Economy")){
 								%>
@@ -102,6 +101,7 @@ li a:hover {
 									<form method="POST" action="Booking/deleteTicket.jsp"><button class="btn btn-primary ">Delete</button>
 										<input type="hidden" name=ticketid value="<%=upcomingFlights.getString("ticketid")%>">
 										<input type="hidden" name=flightid value="<%=upcomingFlights.getString("flightid")%>">
+										<input type="hidden" name=seatsavailable value="<%=upcomingFlights.getString("seatsavailable") %>">
 									</form>
 								</td>
 							<%}
