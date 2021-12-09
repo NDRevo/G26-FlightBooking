@@ -164,28 +164,30 @@ li a:hover {
 						</tr>	
 				    </tbody>
 			</table>
-			<form action="buyTicketConfirmation.jsp">
-				<input type="submit" name="buyButtonClicked" id = buyEcon value="Buy Economy Class - $<%=econfare%>">
-				<input type="submit" name="buyButtonClicked" id = buyBus value="Buy Business Class - $<%=busfare%>">
-				<input type="submit" name="buyButtonClicked" id = buyFirst value="Buy First Class - $<%=firstfare%>">
-				
-				<input type="hidden" name=flightid value="<%=flightid%>">
-				<input type="hidden" name=departureairport value="<%=departureairport%>">
-				<input type="hidden" name=departuretime value="<%=departuretime%>">
-				<input type="hidden" name=destinationairport value="<%=destinationairport%>">
-				<input type="hidden" name=arrivaltime value="<%=arrivaltime%>">
-				<input type="hidden" name=aircraftid value="<%=aircraftid%>">
-				<input type="hidden" name=econfare value="<%=econfare%>">
-				<input type="hidden" name=busfare value="<%=busfare%>">
-				<input type="hidden" name=firstfare value="<%=firstfare%>">
-				<input type="hidden" name=availableseats value="<%=availableseats%>">
-			</form>
-	
-			<form action="flightWaitlistConfirmation.jsp">
-				<input type="submit" name="button_clicked" value="Waiting Queue">
-				<input type="hidden" name=flightid value="<%=flightid%>">
-			</form>	
-	
+			
+			<% if(availableseats == "0"){ %>
+					<form action="flightWaitlistConfirmation.jsp">
+						<input type="submit" name="button_clicked" value="Waiting Queue">
+						<input type="hidden" name=flightid value="<%=flightid%>">
+					</form>	
+				<%} else { %>	
+					<form action="buyTicketConfirmation.jsp">
+						<input type="submit" name="buyButtonClicked" id = buyEcon value="Buy Economy Class - $<%=econfare%>">
+						<input type="submit" name="buyButtonClicked" id = buyBus value="Buy Business Class - $<%=busfare%>">
+						<input type="submit" name="buyButtonClicked" id = buyFirst value="Buy First Class - $<%=firstfare%>">
+
+						<input type="hidden" name=flightid value="<%=flightid%>">
+						<input type="hidden" name=departureairport value="<%=departureairport%>">
+						<input type="hidden" name=departuretime value="<%=departuretime%>">
+						<input type="hidden" name=destinationairport value="<%=destinationairport%>">
+						<input type="hidden" name=arrivaltime value="<%=arrivaltime%>">
+						<input type="hidden" name=aircraftid value="<%=aircraftid%>">
+						<input type="hidden" name=econfare value="<%=econfare%>">
+						<input type="hidden" name=busfare value="<%=busfare%>">
+						<input type="hidden" name=firstfare value="<%=firstfare%>">
+						<input type="hidden" name=availableseats value="<%=availableseats%>">
+					</form>	
+				<%} %>	
 	    	<%} 
 	         db.closeConnection(con);
 	         }%>

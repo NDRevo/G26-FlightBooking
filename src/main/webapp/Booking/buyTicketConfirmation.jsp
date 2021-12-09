@@ -44,9 +44,13 @@ li a:hover {
 
 <%@ page import ="java.sql.*" %>
 
- 	Thank you for booking your flight!
  	
-<% 	ApplicationDB db = new ApplicationDB();	
+<% 	
+
+ 	try{
+
+ 
+	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();	
 	Statement stmt = con.createStatement();
    
@@ -103,6 +107,15 @@ li a:hover {
 		 stmt.executeUpdate("insert into flightforticket (flightid, ticketid, seatnumber, class, fare) value ('" +flightid +
 				 "','" +ticketid+ "' ,'" +availableseats+ "' ,'" + "First" + "','" +firstfare+ "')");
 		 stmt.executeUpdate("update flight set seatsavailable = " + Integer.toString(availableseats-1) + " where flightid = '" + flightid + "'");
+	}
+ 	%>
+ 	Thank you for booking your flight!
+ 	<%
+	}
+	catch (Exception e) {
+		if(e.getLocalizedMessage().contains("Duplicate")){
+			out.println("You can't buy the same ticket, <a href='flightSearch.jsp'>buy a different ticket</a>");
+		}
 	}
 	
 %>
