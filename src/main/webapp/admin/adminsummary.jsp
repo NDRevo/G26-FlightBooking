@@ -41,7 +41,18 @@ li a:hover {
     <li><a href="adminsummary.jsp">Summary</a></li>
     <li><a class="active" href="adminsales.jsp">Sales</a></li>
 </ul>
-<form method="POST" action= "accountLogOut.jsp">
+
+<form method="POST" action= "">
+    <button type="button" id="mostActiveFlights" class="btn btn-primary">List of Most Active Flights</button>
+</form>
+<form method="POST" action= "">
+    <button type="button" id="resByFlightNum" class="btn btn-primary">List of Reservations by Flight Number</button>
+</form>
+<form method="POST" action= "">
+    <button type="button" id="resByCustName" class="btn btn-primary">List of Reservations by Customer Name</button>
+</form>
+
+<form method="POST" action= "">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
 </body>
