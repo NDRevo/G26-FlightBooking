@@ -47,23 +47,35 @@ li a:hover {
 <%
     String getDepartureAirport = request.getParameter("departingairport");
     String getDestinationAirport = request.getParameter("destinationairport");   
+    
+   	if(request.getParameter("flighttype") == "rt" || request.getParameter("flighttype") == "rtf"){
+   		out.println("THIS IS ROUND TRIP");
+   	}
+
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     Date departureDate = dateFormat.parse(request.getParameter("departuretime"));
     
-    if(request.getParameter("returndate") != null){
-        Date returndate = dateFormat.parse(request.getParameter("returndate"));
-    }
+	
+	Date date = new Date();   
+    SimpleDateFormat dateFormatt = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    String stringCurrentDate = dateFormatt.format(date.getDate());
+    out.println(date.toString());
     
+    ResultSet rs1;
     ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();	
     Statement stmt = con.createStatement();
 
     
-    ResultSet rs1;
-   
-    rs1 = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
- 
+    if(request.getParameter("returndate") != null){
+        Date returndate = dateFormat.parse(request.getParameter("returndate"));
+        rs1 = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDestinationAirport+"' and flight.destinationairport='" + getDepartureAirport + "' and '" + returndate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
+        
+    } else {
+    	rs1 = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid ");
+    }
+    
 
   
     while(rs1.next()){

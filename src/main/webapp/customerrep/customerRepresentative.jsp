@@ -57,14 +57,6 @@ li a:hover {
 				while (faqlist.next()) { %>
 					<tr>
 
-					</tr>
-				<% }
-				//close the connection.
-				db.closeConnection(con); }
-				catch (Exception e) {
-					out.print(e);
-				}
-			%>
     </tbody>
   </table>
 
