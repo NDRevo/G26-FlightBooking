@@ -76,7 +76,7 @@ li a:hover {
 </div>
 
 
-<form method="POST" action= "accountLogOut.jsp">
+<form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
 <script>

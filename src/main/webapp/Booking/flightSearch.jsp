@@ -6,13 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-<!--  jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
 <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-
-<!-- Bootstrap Date-Picker Plugin -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
 ul {
@@ -73,9 +68,9 @@ li a:hover {
 .dropdown:hover .dropbtn {
   background-color: #A544D5;
 }
-    </style>
-    <meta charset="UTF-8">
-    <title>Title</title>
+</style>
+<meta charset="UTF-8">
+<title>Title</title>
 </head>
 
 
@@ -103,20 +98,11 @@ li a:hover {
 		
 <form action="buyTicketFromSearch.jsp">
 	
-<label class="checkbox-inline"><input type="radio" name="flighttype" value="ow"checked>One Way</label>
-<label class="checkbox-inline"><input type="radio" name="flighttype" value="rt">Round Trip</label>
-<label class="checkbox-inline"><input type="radio" name="flighttype" value="owf">One Way Flexible</label>
-<label class="checkbox-inline"><input type="radio" name="flighttype" value="rtf">Round Trip Flexible</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" id="ow" value="ow"checked>One Way</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" id="rt" value="rt">Round Trip</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" id="owf" value="owf">One Way Flexible</label>
+<label class="checkbox-inline"><input type="radio" name="flighttype" id="rtf" value="rtf">Round Trip Flexible</label>
 
-<div class="dropdown">
-  <button class="dropbtn">Sort by</button>
-  <div class="dropdown-content">
-    <a href="#">Price/a>
-    <a href="#">Take Off Time</a>
-    <a href="#">Landing Time</a>
-    <a href="#">Duration of Flight</a>
-  </div>
-</div>
 
 <div class="form-group row" style="position:relative; left: 20px;">
     <div class="form-group">
@@ -194,7 +180,7 @@ $(document).ready(function() {
 				}
 			%>			
     </tbody>
-  </table>
+</table>
   
 <form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
