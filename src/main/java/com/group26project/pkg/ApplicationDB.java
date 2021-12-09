@@ -95,8 +95,8 @@ public class ApplicationDB {
 	}
 	
 	public ResultSet getWaitlist(Statement stmt, String user) throws SQLException {
-		String str = "select flight.flightid, arrivaltime, departuretime, departureairport, destinationairport, seatsavailable\r\n"
-				+ "from flight, users, waitlist\r\n"
+		String str = "select flight.flightid, arrivaltime, departuretime, departureairport, destinationairport, seatsavailable "
+				+ "from flight, users, waitlist "
 				+ "where flight.flightid = waitlist.flightid and users.username = waitlist.username and users.username = '"+ user +"'";
 				
 				
@@ -104,19 +104,28 @@ public class ApplicationDB {
 	}
 	
 	public ResultSet getUpcomingFlights(Statement stmt, String user) throws SQLException {
-		String str = "select flightforticket.flightid, ticketfor.ticketid, ticketfor.totalfare, flightforticket.class, flightforticket.seatnumber, flight.arrivaltime, flight.departureairport, flight.destinationairport, flight.departuretime, flight.seatsavailable "
+		String str = "select flightforticket.departuredate, flightforticket.arrivaldate,flightforticket.flightid, ticketfor.ticketid, ticketfor.totalfare, flightforticket.class, flightforticket.seatnumber, flight.arrivaltime, flight.departureairport, flight.destinationairport, flight.departuretime, flight.seatsavailable "
 				+ "from ticketfor, flightforticket, users, flight "
-				+ "where ticketfor.ticketid = flightforticket.ticketid and ticketfor.username = users.username and users.username = '" + user + "' and flight.flightid = flightforticket.flightid ";
+				+ "where ticketfor.ticketid = flightforticket.ticketid and ticketfor.username = users.username and users.username = '" + user + "' and flight.flightid = flightforticket.flightid and flightforticket.arrivaldate > NOW()";
 				
 				
 		return stmt.executeQuery(str);
 	}
 	
+	public ResultSet getHistoryOfFlights(Statement stmt, String user) throws SQLException {
+		String str = "select flightforticket.departuredate, flightforticket.arrivaldate,flightforticket.flightid, ticketfor.ticketid, ticketfor.totalfare, flightforticket.class, flightforticket.seatnumber, flight.arrivaltime, flight.departureairport, flight.destinationairport, flight.departuretime, flight.seatsavailable "
+				+ "from ticketfor, flightforticket, users, flight "
+				+ "where ticketfor.ticketid = flightforticket.ticketid and ticketfor.username = users.username and users.username = '" + user + "' and flight.flightid = flightforticket.flightid and flightforticket.arrivaldate < NOW()";
+				
+				
+		return stmt.executeQuery(str);
+	}
+	
+	
 	public ResultSet getAvailableWaitlist(Statement stmt, String user) throws SQLException{
 		String str = "select flight.flightid, users.username "
 				+ "from waitlist, users, flight "
 				+ "where waitlist.username = '" + user + "' and waitlist.flightid = flight.flightid and flight.seatsavailable > 0;";
-				
 				
 		return stmt.executeQuery(str);
 	}
@@ -125,8 +134,6 @@ public class ApplicationDB {
 	
 	
 	public static void main(String[] args) {
-		
-		//SHOULD RUN LOGIN.HTML
 		
 		ApplicationDB dao = new ApplicationDB();
 		Connection connection = dao.getConnection();

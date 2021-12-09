@@ -137,7 +137,10 @@ li a:hover {
 	    	String firstfare = departureFlights.getString(11);
 	    	String availableseats = departureFlights.getString(13);
 	    	
-	    	
+
+	        String departurefulldate = request.getParameter("departuretime") + " " + departuretime;
+	        String arrivalfulldate = request.getParameter("departuretime") + " " + arrivaltime;
+	        
 	    	%>
 	    	
 	    	<table class="table table-bordered table-striped">
@@ -177,6 +180,8 @@ li a:hover {
 						<input type="submit" name="buyButtonClicked" id = buyFirst value="Buy First Class - $<%=firstfare%>">
 
 						<input type="hidden" name=flightid value="<%=flightid%>">
+						<input type="hidden" name=departurefulldate value="<%=departurefulldate%>">
+						<input type="hidden" name=arrivalfulldate value="<%=arrivalfulldate%>">
 						<input type="hidden" name=departureairport value="<%=departureairport%>">
 						<input type="hidden" name=departuretime value="<%=departuretime%>">
 						<input type="hidden" name=destinationairport value="<%=destinationairport%>">

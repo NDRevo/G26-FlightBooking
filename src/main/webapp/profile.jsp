@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.group26project.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.util.Date, java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -46,12 +46,15 @@ li a:hover {
 			Statement waitlistStatement = con.createStatement();
 			Statement upcomingFlightsStatement = con.createStatement();
 			Statement availableWaitlist = con.createStatement();
+			Statement historyOfFlightsStatement = con.createStatement();
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 
 			//Run the query against the database.
 			Object user = session.getAttribute("user");
-			ResultSet waitlist = db.getWaitlist(waitlistStatement, user.toString());
 			ResultSet upcomingFlights = db.getUpcomingFlights(upcomingFlightsStatement, user.toString());
+			ResultSet waitlist = db.getWaitlist(waitlistStatement, user.toString());
+			ResultSet historyFlights = db.getHistoryOfFlights(historyOfFlightsStatement, user.toString());
+			
 			ResultSet availableFlightInWaitlist = db.getAvailableWaitlist(availableWaitlist, user.toString());
 			
 			if(availableFlightInWaitlist.next()){ %>
@@ -90,14 +93,19 @@ li a:hover {
 		<tbody id="upcomingFlights">
 			<%
 				//parse out the results
-				while (upcomingFlights.next()) { %>
+				while (upcomingFlights.next()) { 
+				    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				    Date fulldeparturedate = dateFormat.parse(upcomingFlights.getString("departuredate"));
+				    Date fullarrivaldate = dateFormat.parse(upcomingFlights.getString("arrivaldate"));
+
+					%>
 					<tr>    
 						<td>#<%= upcomingFlights.getString("ticketid") %></td>
 						<td><%= upcomingFlights.getString("flightid") %></td>
-						<td><%= upcomingFlights.getString("departuretime") %></td>
+						<td><%= fulldeparturedate %></td>
 						<td><%= upcomingFlights.getString("departureairport") %></td>
 						<td><%= upcomingFlights.getString("destinationairport") %></td>
-						<td><%= upcomingFlights.getString("arrivaltime") %></td>
+						<td><%= fullarrivaldate %></td>
 						<td><%= upcomingFlights.getString("class") %></td>
 						<td>#<%= upcomingFlights.getString("seatnumber") %></td>
 						<td>$<%= upcomingFlights.getString("totalfare") %></td>
@@ -126,9 +134,49 @@ li a:hover {
 		      <tr>
 		        <th>Flight History</th>
 		      </tr>
+		      <tr>
+		        <th>Ticket ID</th>
+		        <th>Flight Number</th>
+		        <th>Departure Time</th>
+		        <th>Departure Airport</th>
+		        <th>Destination Airport</th>
+		        <th>Arrival Time</th>
+		        <th>Class</th>
+		        <th>Seat Number</th>
+		        <th>Total Fare</th>
+		      </tr>
 	    </thead>
 		<tbody id="flightHistory">
-				
+							<%
+				//parse out the results
+				while (historyFlights.next()) { 
+				    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				    Date fulldeparturedate = dateFormat.parse(historyFlights.getString("departuredate"));
+				    Date fullarrivaldate = dateFormat.parse(historyFlights.getString("arrivaldate"));
+
+					%>
+					<tr>    
+						<td>#<%= historyFlights.getString("ticketid") %></td>
+						<td><%= historyFlights.getString("flightid") %></td>
+						<td><%= fulldeparturedate %></td>
+						<td><%= historyFlights.getString("departureairport") %></td>
+						<td><%= historyFlights.getString("destinationairport") %></td>
+						<td><%= fullarrivaldate %></td>
+						<td><%= historyFlights.getString("class") %></td>
+						<td>#<%= historyFlights.getString("seatnumber") %></td>
+						<td>$<%= historyFlights.getString("totalfare") %></td>
+										
+						<td>
+							<form method="POST" action="Booking/deleteTicket.jsp"><button class="btn btn-primary ">Delete</button>
+								<input type="hidden" name=ticketid value="<%=historyFlights.getString("ticketid")%>">
+								<input type="hidden" name=flightid value="<%=historyFlights.getString("flightid")%>">
+								<input type="hidden" name=seatsavailable value="<%=historyFlights.getString("seatsavailable") %>">
+							</form>
+						</td>
+						
+					</tr>
+				<% }
+			%>
 	    </tbody>
 	</table>
 	
@@ -166,8 +214,9 @@ li a:hover {
 						</td>
 					</tr>
 				<% }
-				//close the connection.
-				db.closeConnection(con); } 
+					//close the connection.
+					db.closeConnection(con); 
+				} 
 				catch (Exception e) {
 					out.print(e);
 				}
