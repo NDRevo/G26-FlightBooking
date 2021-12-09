@@ -115,6 +115,8 @@ li a:hover {
 	catch (Exception e) {
 		if(e.getLocalizedMessage().contains("Duplicate")){
 			out.println("You can't buy the same ticket, <a href='flightSearch.jsp'>buy a different ticket</a>");
+			
+			out.println(e);
 		}
 	}
 	
