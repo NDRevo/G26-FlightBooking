@@ -54,7 +54,7 @@ li a:hover {
     <tbody id="faqlist">
 
     </tbody>
-  </table>
+</table>
 
 <form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>

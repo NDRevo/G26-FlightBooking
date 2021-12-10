@@ -44,36 +44,41 @@ li a:hover {
     <li><a class="active" href="crlist.jsp">List</a></li>
     <li><a href="crfaq.jsp">FAQ</a></li>
 </ul>
-<form method="POST" action= "accountLogOut.jsp">
-    <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
-</form>
-<div class="container">
+<div >
   <h2>Lists</h2>
-  <form class="form-inline" action="">
-    <div class="form-group">
-      <label for="flightNum">Waitlist by flight:</label>
-      <input type="text" class="form-control" id="flightNum" placeholder="Enter flight number" name="flightNum">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+  <form class="form-inline" method="POST" action="produceList.jsp">
+	    <div>
+		  	<div class="form-group">
+		      <label for="flightNum">Waitlist by flight:</label>
+		      <input type="text" class="form-control" id="flightid" placeholder="Enter flight number" name="flightid">
+		    </div>
+		    <button type="submit" name="submitbuttonclicked"  value= "waitlist" class="btn btn-default">Submit</button>  
+	    </div>
 
-   <form class="form-inline" action="">
-      <div class="form-group">
-        <label for="allFlights">Flights by departing airport:</label>
-        <input type="text" class="form-control" id="departingAirport" placeholder="Enter departing airport" name="departingAirport">
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-
-    <form class="form-inline" action="">
-          <div class="form-group">
-            <label for="allFlights">Flights by arriving airport:</label>
-            <input type="text" class="form-control" id="arrivingAirport" placeholder="Enter arriving airport" name="arrivingAirport">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-        </div>
+		<div>
+		   <div class="form-group">
+	        <label for="allFlights">Flights by departing airport:</label>
+	        <input type="text" class="form-control" id="departingAirport" placeholder="Enter departing airport" name="departingAirport">
+	       </div>
+	      <button type="submit" name="submitbuttonclicked"  value= "departing" class="btn btn-default">Submit</button>
+		</div>
+		
+		<div>
+	      <div class="form-group">
+        	<label for="allFlights">Flights by arriving airport:</label>
+        	<input type="text" class="form-control" id="arrivingAirport" placeholder="Enter arriving airport" name="arrivingAirport">
+      	  </div>
+      	  <button type="submit" name="submitbuttonclicked"  value= "arriving" class="btn btn-default">Submit</button>
+		</div>
+</form>
 </div>
 
+<br>
 
+<form method="POST" action= "../Account/accountLogOut.jsp">
+    <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
+</form>
+
+</body>
  </html>
+ 

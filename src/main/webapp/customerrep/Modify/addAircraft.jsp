@@ -34,8 +34,8 @@
 
 
 		con.close();
-		//Redirect
-		out.print("Insert succeeded!");
+		
+		response.sendRedirect("../crmodify.jsp");
 		
 	} catch (Exception ex) {
 		out.print(ex);

@@ -42,9 +42,11 @@ li a:hover {
     <li><a href="crlist.jsp">List</a></li>
     <li><a href="crfaq.jsp">FAQ</a></li>
 </ul>
-<form method="POST" action= "accountLogOut.jsp">
-    <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
-</form>
+<%
+ApplicationDB db = new ApplicationDB();	
+Connection con = db.getConnection();	
+%>
+
 <div class="container">
   <h2>Lists</h2>
   <form class="form-inline" action="">
@@ -74,68 +76,143 @@ li a:hover {
 
 </div>
 
-<div id="aircraftEditForm">
-<form action="">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <input type="submit" value="Submit">
-</form>
+<div id="aircraftAddForm">
+<h2>Add Aircraft</h2>
+	<form action="Modify/addAircraft.jsp">
+	  <label for="aircraftid">AircraftID:</label><br>
+	  <input type="text" id="aircraftid" name="aircraftid" placeholder="'Airbus 105'"><br>
+	  <label for="numberseats">Number Of Seats:</label><br>
+	  <input type="text" id="numberseats" name="numberseats" placeholder="'5'"><br><br>
+	  <input type="submit" value="Submit">
+	</form>
+</div>
+<br>
+<div id="airportAddForm">
+<h2>Add Airport</h2>
+	<form action="Modify/addAirport.jsp">
+	  <label for="airportid">AirportID:</label><br>
+	  <input type="text" id="airportid" name="airportid" placeholder="'EWR'"><br><br>
+	  <input type="submit" value="Submit">
+	</form>
 </div>
 
-<div id="airportEditForm">
-<form action="">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <input type="submit" value="Submit">
-</form>
+<br>
+
+<div id="flightAddForm">
+<h2>Add Flight</h2>
+	<form action="Modify/addFlight.jsp">
+	  
+	  	<label for="departuretime">Departure Time:</label><br>
+	  	<input type="text" id="departuretime" name="departuretime" placeholder="'12:00:00'"><br>
+	  
+	  	<label for="arrivaltime">Arrival Time:</label><br>
+	  	<input type="text" id="arrivaltime" name="arrivaltime" placeholder="'12:00:00'"><br>
+
+	  	<label for="departureairport">Departure Airport:</label><br>
+		  	<select name="departureairport">
+			<%	
+	    	Statement airportstatement = con.createStatement();
+	    	ResultSet airportlist = airportstatement.executeQuery("select airportid from airport");
+	    	
+	    	while(airportlist.next()){
+	    		String airportid = airportlist.getString(1);
+			%>
+				<option value= <%= airportid %>><%= airportid %></option>
+			<%
+	    	}
+			%>
+			</select><br>
+	  
+	  	<label for="arrivalairport">Arrival Airport:</label><br>
+		  	<select name="arrivalairport">
+			
+			<%	
+		   	Statement arrivalairportstatement = con.createStatement();
+		   	ResultSet arrivalairportlist = arrivalairportstatement.executeQuery("select airportid from airport");
+		   	
+		   	while(arrivalairportlist.next()){
+		   		String airportid = arrivalairportlist.getString(1);
+			%>
+				<option value= <%= airportid %>><%= airportid %></option>
+			<%
+		   	}
+			%>
+			</select><br>
+	  
+	  <label for="companyid">Airline ID:</label><br>
+		<select name="companyid">
+		
+		<%	
+    	Statement company = con.createStatement();
+    	ResultSet companylist = company.executeQuery("select companyid from airlinecompany");
+    	
+    	while(companylist.next()){
+    		String companyid = companylist.getString(1);
+		%>
+			<option value= <%= companyid %>><%= companyid %></option>
+		<%
+    	}
+		%>
+		</select><br>
+		 
+	 
+	 
+	  <label for="aircraftid">Aircraft ID:</label><br>
+	  <select name="aircraftid">
+		
+		<%	
+    	Statement aircraftstatement = con.createStatement();
+    	ResultSet aircraftlist = aircraftstatement.executeQuery("select aircraftid from aircrafts");
+    	
+    	while(aircraftlist.next()){
+    		String aircraftid = aircraftlist.getString(1);
+		%>
+			<option value= '<%= aircraftid %>'><%= aircraftid %></option>
+		<%
+    	}
+		%>
+		</select><br>
+	  
+	  <label for="dooid">Days Of Operation (7 Digit, Starts on Monday, 1 Signifies it flies on that day)</label><br>
+	  <select name="dooid">
+		
+		<%	
+    	Statement dooidstatement = con.createStatement();
+    	ResultSet dooidlist = aircraftstatement.executeQuery("select dooid from daysofoperation");
+    	
+    	while(dooidlist.next()){
+    		String dooid = dooidlist.getString(1);
+		%>
+			<option value= <%= dooid %>><%= dooid %></option>
+		<%
+    	}
+    	
+    	con.close();
+		%>
+		</select><br>
+	  
+	  
+	  <label for="econfare">Economy Fair:</label><br>
+	  <input type="text" id="econfare" name="econfare" placeholder="'120'"><br>
+	  <label for="busfare">Business Fair:</label><br>
+	  <input type="text" id="busfare" name="busfare" placeholder="'220'"><br>
+	  <label for="firstfare">First Fair:</label><br>
+	  <input type="text" id="firstfare" name="firstfare" placeholder="'320'"><br>
+	  
+	  <label for="traveltype">Travel Type:</label><br> 
+	  <select name="traveltype">
+			<option value= domestic>domestic</option>
+			<option value= international>international</option>
+		</select><br><br>
+	  
+	  
+	  <input type="submit" value="Submit">
+	</form>
 </div>
 
-<div id="flightEditForm">
-<form action="">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <input type="submit" value="Submit">
+<br>
+<form method="POST" action= "accountLogOut.jsp">
+    <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
-</div>
-
-<script>
-function editAircraft() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
-
-<script>
-function editAirport() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
-
-<script>
-function editFlight() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
-
-
+</body>
  </html>
