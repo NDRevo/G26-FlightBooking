@@ -39,6 +39,7 @@ li a:hover {
   border: none;
   cursor: pointer;
 }
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -66,6 +67,7 @@ li a:hover {
 .dropdown:hover .dropbtn {
   background-color: #A544D5;
 }
+
 </style>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -76,26 +78,23 @@ li a:hover {
     <li><a href="../faq.jsp">FAQ</a></li>
     <li><a href="../profile.jsp">Profile</a></li>
 </ul>
-	<div class="dropdown">
-	  <button class="dropbtn">Sort by</button>
-	  <div class="dropdown-content">
-	    <a href="#">Price</a>
-	    <a href="#">Take Off Time</a>
-	    <a href="#">Landing Time</a>
-	    <a href="#">Duration of Flight</a>
-	  </div>
-	</div>
-	If flight is full, click on the waitlist button to be added to the waiting queue.
-	<br>
+
+<script>
+	function check(){
+		if(document.getElementById("filterlist").value == "price"){
+			document.getElementById("filtertextfield").placeholder = "Enter Max Price";
+		} else if (document.getElementById("filterlist").value == "airline"){
+			document.getElementById("filtertextfield").placeholder = "Ex. AA, DL, JB";
+		} else if (document.getElementById("filterlist").value == "departuretime"){
+		 	document.getElementById("filtertextfield").placeholder = "HH:mm:ss";
+		} else if (document.getElementById("filterlist").value == "arrivaltime"){
+			document.getElementById("filtertextfield").placeholder = "HH:mm:ss";
+		}
+	}	
+</script>
 <%
     String getDepartureAirport = request.getParameter("departingairport");
     String getDestinationAirport = request.getParameter("destinationairport");   
-    
-   	if(request.getParameter("flighttype").equalsIgnoreCase("rt") || request.getParameter("flighttype").equalsIgnoreCase("rtf")){
-   		out.println("THIS IS ROUND TRIP");
-   	}
-
-
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     Date departureDate = dateFormat.parse(request.getParameter("departuretime"));
@@ -110,7 +109,6 @@ li a:hover {
     ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();	
     Statement stmt = con.createStatement();
-
     
     if(request.getParameter("returndate") != null){
         Date returndate = dateFormat.parse(request.getParameter("returndate"));
@@ -120,7 +118,42 @@ li a:hover {
         
     } else {
     	departureFlights = stmt.executeQuery("select * from flight, daysofoperation where flight.departureairport='"+ getDepartureAirport+"' and flight.destinationairport='" + getDestinationAirport + "' and '" + departureDate.getDay() + "'in (daysofoperation.monday,daysofoperation.tuesday,daysofoperation.wednesday,daysofoperation.thursday,daysofoperation.friday,daysofoperation.saturday,daysofoperation.sunday) and flight.dooid = daysofoperation.dooid");
-    
+    	
+    	%>
+		<form method="get" action="sortedFlights.jsp">
+			Sort by:
+			<select name="sortby" size=1>
+				<option value="price">Price</option>
+				<option value="departuretime">Departure Time</option>
+				<option value="arrivaltime">Arrival Time</option>
+				<option value="duration">Duration</option>
+			</select>
+			<input type="submit" value="Submit">
+			<input type="hidden" name=departureairport value="<%=getDepartureAirport%>">
+			<input type="hidden" name=destinationairport value="<%=getDestinationAirport%>">
+			<input type="hidden" name=departuretime value="<%=request.getParameter("departuretime")%>">
+			
+		</form>
+		
+		<form method="get" action="filteredFlights.jsp">
+			Filter by:
+			<select id="filterlist" name="filterby" size=1  onChange="check();">
+				<option value="price">Price</option>
+				<option value="departuretime">Departure Time No Later Than: </option>
+				<option value="arrivaltime">Arrival Time No Later Than:</option>
+				<option value="airline">Airline</option>
+			</select>
+			<input type=text name="filtertextfield" id="filtertextfield" placeholder="Enter Max Price" value="">
+			<input type="submit" value="Submit">
+			
+			<input type="hidden" name=departureairport value="<%=getDepartureAirport%>">
+			<input type="hidden" name=destinationairport value="<%=getDestinationAirport%>">
+			<input type="hidden" name=departuretime value="<%=request.getParameter("departuretime")%>">
+		</form>
+    	
+    	If flight is full, click on the waitlist button to be added to the waiting queue.
+    	<br>
+    	<%
  
 	    while(departureFlights.next()){
 	    	String flightid = departureFlights.getString(1);
@@ -136,7 +169,7 @@ li a:hover {
 	    	String busfare = departureFlights.getString(10);
 	    	String firstfare = departureFlights.getString(11);
 	    	String availableseats = departureFlights.getString(13);
-	    	
+	    	String duration = departureFlights.getString(14);
 
 	        String departurefulldate = request.getParameter("departuretime") + " " + departuretime;
 	        String arrivalfulldate = request.getParameter("departuretime") + " " + arrivaltime;
@@ -151,6 +184,7 @@ li a:hover {
 			        <th>Departing Date</th>
 			        <th>Arriving Airport</th>
 			        <th>Arriving Date</th>
+			        <th>Duration</th>
 			        <th>Aircraft</th>
 			        <th>Available Seats</th>
 			      </tr>
@@ -162,6 +196,7 @@ li a:hover {
 							<td><%= departuretime %></td>
 							<td><%= destinationairport %></td>
 							<td><%= arrivaltime %></td>
+							<td><%= duration %></td>
 							<td><%= aircraftid %></td>
 							<td><%= availableseats %></td>	
 						</tr>	
@@ -195,6 +230,6 @@ li a:hover {
 				<%} %>	
 	    	<%} 
 	         db.closeConnection(con);
-	         }%>
+	     }%>
 </body>
 </html>
