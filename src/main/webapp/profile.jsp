@@ -66,7 +66,7 @@ li a:hover {
 
 <ul>
     <li><a href="Booking/flightSearch.jsp">Book Flights</a></li>
-    <li><a href="faq.jsp">FAQ</a></li>
+    <li><a href="faq/faq.jsp">FAQ</a></li>
     <li><a class="active" href="profile.jsp">Profile</a></li>
 </ul>
 

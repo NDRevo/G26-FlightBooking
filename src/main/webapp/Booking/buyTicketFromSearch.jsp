@@ -75,7 +75,7 @@ li a:hover {
 <body>
 <ul>
     <li><a class="active" href="flightSearch.jsp">Book Flights</a></li>
-    <li><a href="../faq.jsp">FAQ</a></li>
+    <li><a href="../faq/faq.jsp">FAQ</a></li>
     <li><a href="../profile.jsp">Profile</a></li>
 </ul>
 
