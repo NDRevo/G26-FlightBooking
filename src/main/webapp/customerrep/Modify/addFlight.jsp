@@ -86,7 +86,7 @@
 		ps.setString(14, duration);
 
 		ps.executeUpdate();
-		out.println("IMPORT SUCCESSFUL"); 
+		response.sendRedirect("../crmodify.jsp");
 		
 		con.close();
 
