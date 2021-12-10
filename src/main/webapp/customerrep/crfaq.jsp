@@ -7,6 +7,8 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 <style>
 ul {
   list-style-type: none;
@@ -15,11 +17,9 @@ ul {
   overflow: hidden;
   background-color: #333;
 }
-
 li {
   float: left;
 }
-
 li a {
   display: block;
   color: white;
@@ -31,25 +31,19 @@ li a {
 li a:hover {
   background-color: #111;
 }
-.popup {
-    display: inline-block;
+
+.boxed {
+  border: 1px solid green;
+  padding: 16px;
 }
-.popup .popuptext {
-    visibility: hidden;
-    width: 160px;
-    background-color: #b1b1b1;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 20px;
-    position:relative;
-    top:50px;
-    right:150px;
+.response{
+	padding-top: 25px;
 }
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
+.customerrep{
+	text-align: right;
+}
+.fullresponse{
+	padding-top: 20px;
 }
     </style>
     <meta charset="UTF-8">
@@ -63,27 +57,83 @@ li a:hover {
     <li><a class="active" href="crfaq.jsp">FAQ</a></li>
 </ul>
 
-<div style="text-align:center;">
-  <a href="#" onclick="pop()">FAQ QUESTION HERE</a>
-  <div class="popup">
-    <span class="popuptext" id="faqPopUp">
-      Enter question answer: <input type="text"/>
-    </span>
-    <form method="POST" action= "NEED TO ADD THING HERE ***">
-        <input type="submit" id="submitAnswerBTN" name="Submit" value="Submit"/>
-    </form>
-  </div>
-</div>
+<h2>FAQ</h2>
+	<%
+    ResultSet questions;
+    ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();	
+    Statement stmt = con.createStatement();
+    
+    questions = stmt.executeQuery("select * from responses where responses.isreply = " + "'0'");
+   	%>
+
+   	<%
+    while(questions.next()){
+    	String questionid = questions.getString("questionid");
+    	String username = questions.getString("username");
+    	String text = questions.getString("text");
+    	
+    	boolean isReply;
+    	
+    	if(questions.getString("isreply").equals("0")){
+    		isReply = false;
+    	} else {
+    		isReply = true;
+    	}
+    	
+
+        
+    	%>
+	    	
+			<div class="fullresponse">
+				<label>Question By: <%= username %></label>
+				<div class="boxed">
+				  <%= text %>
+				  
+				  	<%
+					    Statement responsestatement = con.createStatement();    
+					    ResultSet responses = responsestatement.executeQuery("select * from responses where responses.isreply = '1' and responses.questionid = '" + questionid +"'");
+					    	    
+					    
+					    while(responses.next()){
+				  	%>
+					  	<div class="response">
+							<div>
+								<label>Answer</label>
+							</div>
+							
+							<div class="boxed">
+							   <%=  responses.getString("text") %>
+							</div>
+						</div>
+				  	
+				  	<%
+					    }
+				  	
+				  	%>
+				</div>
+			</div>
+			<form action="crfaqanswer.jsp">
+			    <div class="form-group">
+			        <input class="form-control" id="responsetext" name="responsetext" placeholder="Type response here!" type="text"/>
+					<input type="hidden" name=questionid value="<%=questionid%>">
+					<input type="hidden" name=username value="<%=username%>">
+			        <button id="submitbutton" class="btn btn-primary " name="submit" type="submit">Reply</button>
+			    </div>
+			</form>
+			
+			
+		
+			<%}
+    	
+         db.closeConnection(con); 
+       %>
+
+<br>
 
 
 <form method="POST" action= "../Account/accountLogOut.jsp">
     <input type="submit" id="logOutBTN" name="Logout" value="Log Out"/>
 </form>
-<script>
-function pop() {
-    var popup = document.getElementById('myPopup');
-    popup.classList.toggle('show');
-}
-</script>
 </body>
- </html>
+</html>
