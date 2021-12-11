@@ -76,30 +76,59 @@ li a:hover {
 
 <div id="aircraftEditForm">
 <form action="">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <label for="numSeats">Number of Seats:</label><br>
+  <input type="text" id="numSeats" name="numSeats" value="IDK"><br>
   <input type="submit" value="Submit">
 </form>
 </div>
 
 <div id="airportEditForm">
 <form action="">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <label for="airportID">Airport ID:</label><br>
+  <input type="text" id="airportID" name="airportID" value="IDK"><br>
   <input type="submit" value="Submit">
 </form>
 </div>
 
 <div id="flightEditForm">
 <form action="">
-  <label for="fname">First name:</label><br>
+  <label for="departureTime">Departure Time:</label><br>
   <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <label for="arrivalTime">Arrival Time:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="flightID">Flight ID:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br>
+  <label for="daysOfWeek">Days of Week:</label><br>
+    <label class="checkbox-inline">
+        <input type="checkbox" value="">Monday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="">Tuesday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="">Wednesday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="">Thursday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="">Friday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="">Saturday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="">Sunday
+      </label>
+      <br>
+  <label for="destinationAirport">Destination Airport:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="departureAirport">Departure Airport:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="domesticOrInternational">Domestic or International Flight:</label><br>
+  <label class="radio-inline"><input type="radio" name="flightType" checked>International</label>
+  <label class="radio-inline"><input type="radio" name="flightType">Domestic</label>
+  <br>
   <input type="submit" value="Submit">
 </form>
 </div>
