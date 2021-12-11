@@ -49,17 +49,7 @@ li a:hover {
 
      <h2> Modify </h2>
       <form action="">
-         <div class="form-group">
-           <label for="modifyCustomer">Edit Customer:</label>
-           <input type="text" class="form-control" id="customerID" placeholder="Enter customer ID" name="customerID">
-         </div>
 
-
-
-           <div class="form-group">
-             <label for="modifyCustRep">Edit Customer Representative:</label>
-             <input type="text" class="form-control" id="custRepID" placeholder="Enter Customer Representative ID" name="custRepID">
-           </div>
 
      <div id="editForm">
        <label for="userID">Edit UserID:</label><br>
